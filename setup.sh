@@ -18,4 +18,4 @@ cat /dev/null > ~/.bash_history
 mkdir -p /home/node/app
 
 # download startup script
-curl -LJO https://raw.githubusercontent.com/fosk06/gcp-compute-scripts/master/startup.js /home/node
+curl -LJO https://raw.githubusercontent.com/fosk06/gcp-compute-nodejs-scripts/main/startup.js /home/node
