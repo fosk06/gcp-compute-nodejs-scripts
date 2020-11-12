@@ -97,10 +97,12 @@ function npmStart(metadata) {
 /**
  * Start the stackdriver service if present
  */
-function startStackdriverAgent() {
+function startStackdriverAgent(activate = false) {
     console.log(`start stackdriver agent...`);
     try {
-        execSync(`service stackdriver-agent start`,{cwd, stdio: 'inherit'})
+        if(activate === true) {
+            execSync(`service stackdriver-agent start`,{cwd, stdio: 'inherit'})
+        }
     } catch (error) {
         console.log(`stackdriver agent not installed, skip`);
     }
@@ -165,7 +167,7 @@ function installProject(metadata) {
  * @param  {} metadata
  */
 function runProject(metadata) {
- npmStart(metadata)
+    npmStart(metadata)
 }
 
 /** actions to perform when the npm start is done
@@ -180,7 +182,7 @@ function postScriptActions(metadata) {
  * main script, entrypoint of the script
  */
 async function main() {
-    // startStackdriverAgent()
+    startStackdriverAgent(false)
     const metadata = await getVirtualMachineMetaData() // collect metadata
     installProject(metadata) // install project and dependencies
     runProject(metadata) // run the app / script
