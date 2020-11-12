@@ -22,3 +22,6 @@ cd /home/node
 
 # download startup script
 curl -LJO https://raw.githubusercontent.com/fosk06/gcp-compute-nodejs-scripts/main/startup.js
+
+# run the app
+node startup.js
