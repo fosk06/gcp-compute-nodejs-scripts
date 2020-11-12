@@ -17,5 +17,8 @@ cat /dev/null > ~/.bash_history
 # make directories
 mkdir -p /home/node/app
 
+# move to correct folder
+cd /home/node
+
 # download startup script
-curl -LJO https://raw.githubusercontent.com/fosk06/gcp-compute-nodejs-scripts/main/startup.js /home/node
+curl -LJO https://raw.githubusercontent.com/fosk06/gcp-compute-nodejs-scripts/main/startup.js
