@@ -88,6 +88,10 @@ function npmInstall(metadata) {
  * npm start step
  */
 function npmStart(metadata) {
+    if(metadata['START'] && metadata['START'] === "false") {
+        console.log(`skip npm start...`)
+        return metadata
+    }
     console.log(`start npm application...`);
     const cwd = join(applicationPath, metadata['APP_ROOT'] || '');
     console.log(`run npm start in ${cwd} folder`)
