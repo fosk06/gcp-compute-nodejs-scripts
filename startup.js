@@ -99,6 +99,16 @@ function npmStart(metadata) {
 }
 
 /**
+ * npm build step
+ */
+function npmBuild(metadata) {
+    console.log(`build nodejs application...`);
+    const cwd = join(applicationPath, metadata['APP_ROOT'] || '');
+    console.log(`run npm run build in ${cwd} folder`)
+    execSync(`npm run build --if-present`,{cwd, stdio: 'inherit'})
+}
+
+/**
  * Start the stackdriver service if  metadata STACKDRIVER_AGENT=true
  */
 function startStackdriverAgent(metadata) {
@@ -168,6 +178,13 @@ function installProject(metadata) {
     npmInstall(metadata)
 }
 
+/** build if necessary the nodejs application
+ * @param  {} metadata
+ */
+function buildProject(metadata) {
+    npmBuild(metadata)
+}
+
 /** run the nodejs application
  * @param  {} metadata
  */
@@ -190,6 +207,7 @@ async function main() {
     const metadata = await getVirtualMachineMetaData() // collect metadata
     startStackdriverAgent(metadata) // start the stackdriver agent if necessary
     installProject(metadata) // install project and dependencies
+    buildProject(metadata) // build the app / script
     runProject(metadata) // run the app / script
     postScriptActions(metadata) // clean up if required
 }
