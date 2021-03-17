@@ -8,7 +8,7 @@ const homePath = join('/home', 'node'); // path of the node user home directory
 const applicationPath = join('/home', 'node', 'app'); // path of the node user home directory
 
 /**
- * Drop and create app directory
+ * Drop and create app directory = /home/node/app
  */
 function removeAppFolder() {
     try {
@@ -21,6 +21,7 @@ function removeAppFolder() {
 
 /** 
  * get the instance metadata with http call on GCP APIs
+ * @param  {} uri the metadata uri to call on the metadata server, example /attributes/...
  */
 function getInstanceMetadata(uri) {
     console.log(`get instance metadata...`);
@@ -57,7 +58,7 @@ function getInstanceMetadata(uri) {
     })
 }
 
-/** clone the repository in /home/node/app
+/** clone the repository in /home/node/app, use the metadata GIT_URL for the git url and GIT_BRANCH for branch
  * @param  {} metadata
  */
 function cloneRepository(metadata) {
@@ -75,7 +76,7 @@ function cloneRepository(metadata) {
 }
 
 /**
- * npm install step
+ * npm install step, APP_ROOT metadata allow yout to change the default path of the application
  */
 function npmInstall(metadata) {
     console.log(`install npm dependencies...`);
@@ -85,10 +86,10 @@ function npmInstall(metadata) {
 }
 
 /**
- * npm start step
+ * npm start step, skip if metadata SKIP_START = false
  */
 function npmStart(metadata) {
-    if(metadata['START'] && metadata['START'] === "false") {
+    if(metadata['SKIP_START'] && metadata['SKIP_START'] === "true") {
         console.log(`skip npm start...`)
         return metadata
     }
@@ -99,7 +100,7 @@ function npmStart(metadata) {
 }
 
 /**
- * npm build step
+ * npm build step, using APP_ROOT metadata if specified
  */
 function npmBuild(metadata) {
     console.log(`build nodejs application...`);
@@ -109,7 +110,7 @@ function npmBuild(metadata) {
 }
 
 /**
- * Start the stackdriver service if  metadata STACKDRIVER_AGENT=true
+ * Start the stackdriver service if metadata STACKDRIVER_AGENT=true
  */
 function startStackdriverAgent(metadata) {
     const activate = String(metadata['STACKDRIVER_AGENT'])
@@ -138,7 +139,7 @@ function autodestroyVirtualMachine(metadata) {
 }
 
 /** 
- * write env file in /home/node/app
+ * write env file in /home/node/app, use APP_ROOT if specified ignore few deployment metadatas 
  * @param  {} metadata
  */
 function writeEnvFile(metadata) {
