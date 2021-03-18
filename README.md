@@ -31,9 +31,15 @@ The VM have few Metadata to work with the script:
 ```sh
 gcloud compute instances create nodejs-app \
     --image-family debian-nodejs \
-    --machine-type n2-standard-1 \
+    --machine-type n2-standard-2 \
     --scopes "userinfo-email,cloud-platform" \
     --metadata startup-script="/home/node/startup.js",GIT_URL=<mandatory git url to clone project>,GIT_BRANCH=main \
     --zone <gcp-zone> \
     --service-account=<service-account>
 ```
+gcloud compute instances create nodejs-app \
+    --image-family debian-nodejs \
+    --machine-type n2-standard-2 \
+    --scopes "userinfo-email,cloud-platform" \
+    --zone europe-west1-c \
+    --project=prestashop-data-integration
