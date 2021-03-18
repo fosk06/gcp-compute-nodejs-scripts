@@ -78,8 +78,8 @@ function cloneRepository(metadata) {
     if(!!gitUrl === false) {
         throw new Error('GIT_URL required')
     }
-    if(!!gitBranch === false) { // default branch is master
-        gitBranch = "master"
+    if(!!gitBranch === false) { // default branch is main
+        gitBranch = "main"
     }
     console.log(`clone repository ${gitUrl} on branch ${gitBranch} at ${applicationPath}`);
     const command = `git clone --single-branch --branch ${gitBranch} ${gitUrl} ${applicationPath}`

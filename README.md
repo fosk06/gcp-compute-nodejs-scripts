@@ -22,7 +22,7 @@ The script will use some custom metadatas of the virtual machine to deploy and r
 
 The VM have few Metadata to work with the script:
 - **GIT_URL**: the git url of the nodejs application, used by git clone command it's mandatory
-- GIT_BRANCH: the default branch of the application defaults to "master"
+- GIT_BRANCH: the default branch of the application defaults to "main"
 - SKIP_START: if set to "true", skip npm start step, default to false
 - APP_ROOT: change the default root path of the application, default to /home/node/app
 - STACKDRIVER_AGENT: if set to "true", start the stackdriver agent (must be installed)
