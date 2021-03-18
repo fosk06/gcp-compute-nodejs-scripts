@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const {appendFileSync, writeFileSync} = require('fs')
+const {appendFileSync, writeFileSync, readdirSync} = require('fs')
 const http = require('http')
 const {execSync} = require('child_process')
 const {hostname} = require('os')
@@ -17,6 +17,17 @@ function removeAppFolder() {
     try {
         execSync(`mkdir -p ${applicationPath}`,{cwd: homePath})
     } catch (error) {}
+}
+
+/**
+ * Drop and create app directory = /home/node/app
+ */
+function checkFileSystem() {
+    try {
+        readdirSync(applicationPath)
+    } catch (error) {
+        throw new Error('/home/node/app folder does not exist')
+    }
 }
 
 /** 
@@ -205,6 +216,7 @@ function postScriptActions(metadata) {
  * main script, entrypoint of the script
  */
 async function main() {
+    checkFileSystem() // test if the file system is ready for this script
     const metadata = await getVirtualMachineMetaData() // collect metadata
     startStackdriverAgent(metadata) // start the stackdriver agent if necessary
     installProject(metadata) // install project and dependencies

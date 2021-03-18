@@ -12,7 +12,7 @@ source "googlecompute" "compute" {
   image_description   = "debian with node js"
   image_family        = "debian-nodejs"
   image_name          = "debian-nodejs"
-  machine_type        = "n2-standard-1"
+  machine_type        = "n2-standard-2"
   project_id          = var.project_id
   source_image_family = "debian-10"
   ssh_username        = "packer"
